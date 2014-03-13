@@ -112,6 +112,7 @@ private:
     QNetworkDiskCache* m_networkDiskCache;
     QVariantMap m_customHeaders;
     QSslConfiguration m_sslConfiguration;
+    bool m_responseBodyEnabled;
 };
 
 #endif // NETWORKACCESSMANAGER_H

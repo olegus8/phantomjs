@@ -63,6 +63,7 @@ class Config: public QObject
     Q_PROPERTY(QString webdriverLogFile READ webdriverLogFile WRITE setWebdriverLogFile)
     Q_PROPERTY(QString webdriverLogLevel READ webdriverLogLevel WRITE setWebdriverLogLevel)
     Q_PROPERTY(QString webdriverSeleniumGridHub READ webdriverSeleniumGridHub WRITE setWebdriverSeleniumGridHub)
+    Q_PROPERTY(bool responseBodyEnabled READ responseBodyEnabled WRITE setResponseBodyEnabled)
 
 public:
     Config(QObject *parent = 0);
@@ -176,6 +177,9 @@ public:
     void setWebdriverSeleniumGridHub(const QString& hubUrl);
     QString webdriverSeleniumGridHub() const;
 
+    bool responseBodyEnabled() const;
+    void setResponseBodyEnabled(const bool value);
+
 public slots:
     void handleSwitch(const QString &sw);
     void handleOption(const QString &option, const QVariant &value);
@@ -227,6 +231,7 @@ private:
     QString m_webdriverLogFile;
     QString m_webdriverLogLevel;
     QString m_webdriverSeleniumGridHub;
+    bool m_responseBodyEnabled;
 };
 
 #endif // CONFIG_H

@@ -119,6 +119,7 @@ NetworkAccessManager::NetworkAccessManager(QObject *parent, const Config *config
     , m_idCounter(0)
     , m_networkDiskCache(0)
     , m_sslConfiguration(QSslConfiguration::defaultConfiguration())
+    , m_responseBodyEnabled(config->responseBodyEnabled())
 {
     if (config->diskCacheEnabled()) {
         m_networkDiskCache = new QNetworkDiskCache(this);
@@ -326,6 +327,10 @@ void NetworkAccessManager::handleStarted()
     data["redirectURL"] = reply->header(QNetworkRequest::LocationHeader);
     data["headers"] = headers;
     data["time"] = QDateTime::currentDateTime();
+ 
+    // https://github.com/ariya/phantomjs/issues/10158
+    if (m_responseBodyEnabled)
+        data["bodyBase64"] = QString::fromAscii(reply->peek(reply->bytesAvailable()).toBase64().data());
 
     emit resourceReceived(data);
 }
